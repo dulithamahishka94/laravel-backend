@@ -18,47 +18,6 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class AuthController extends Controller
 {
-//    public function getToken(GetTokenRequest $request)
-//    {
-//        $responseCode = Response::HTTP_OK;
-//        $response = null;
-//
-//        try {
-//            $request->validated();
-////            $user = User::findOrFail($request->user()->id);
-//            $user = User::where('email', $request->username)->firstOrFail();
-//
-//            // This will not work on php artisan serve. Check the link https://stackoverflow.com/questions/44879574/laravel-server-hangs-whenever-i-try-to-request-localhost8000-any-using-guzzle
-//            $responseReceived = Http::asForm()->post(config('services.passport.login_endpoint'),
-//                [
-//                    'grant_type' => 'password',
-//                    'client_id' => config('services.passport.client_id'),
-//                    'client_secret' => config('services.passport.client_secret'),
-//                    'username' => $request->username,
-//                    'password' => $request->password,
-//                ]
-//            );
-//
-//            $response = $responseReceived->body();
-//        } catch (MethodNotAllowedHttpException $e) {
-//            $response = 'Wrong method call used';
-//            $responseCode = $e->getCode();
-//        } catch (ModelNotFoundException $e) {
-//            $response = 'Invalid username provided.';
-//            $responseCode = $e->getCode();
-//        } catch (\Exception $e) {
-//            $response = [
-//                'message' => 'General exception received',
-//                'exception' => $e->getMessage(),
-//            ];
-//
-//            $responseCode = $e->getCode();
-//        }
-//
-//        return $request->sendJsonResponse($response, $responseCode);;
-////        return $response->body();
-//    }
-
     /**
      * This function is used to registered users to logged in into the system. The access token will be provided on successful
      * logins.
@@ -201,6 +160,6 @@ class AuthController extends Controller
             'user_id' => auth()->user()->id,
         ]);
 
-        return response()->json('Logged out successfully', 200);
+        return response()->json('Logged out successfully', Response::HTTP_OK);
     }
 }
