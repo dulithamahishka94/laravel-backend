@@ -26,7 +26,7 @@ class DeleteForumRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'forum_id' => 'required'
         ];
     }
 }

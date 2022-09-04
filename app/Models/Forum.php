@@ -26,16 +26,4 @@ class Forum extends Model
         'deleted_by',
         'user_id'
     ];
-
-//    public function users()
-//    {
-//        return $this->belongsTo(User::class, 'user_id', 'id');
-//    }
-//
-//    public function comments()
-//    {
-//        return $this->hasMany(Comment::class, 'forum_id', 'id');
-//    }
-
-
 }

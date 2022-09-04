@@ -35,6 +35,12 @@ class Comment extends Model
         return $this->hasOne(User::class, 'comment_by', 'id');
     }
 
+    /**
+     * Get all comments for a forum.
+     *
+     * @param $forumId
+     * @return \Illuminate\Support\Collection
+     */
     public function getComments($forumId)
     {
         $users = DB::table('forums')

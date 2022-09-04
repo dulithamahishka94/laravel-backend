@@ -18,9 +18,4 @@ class Approve extends Model
      * @var array<int, string>
      */
     protected $fillable = [];
-
-    public function approveForum($forumId)
-    {
-
-    }
 }

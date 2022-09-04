@@ -19,6 +19,12 @@ class ForumPolicy
         //
     }
 
+    /**
+     * Policy for approve forum.
+     *
+     * @param User $user
+     * @return bool
+     */
     public function approveForum(User $user)
     {
         if ($user->isAdmin()) {
@@ -28,6 +34,12 @@ class ForumPolicy
         return false;
     }
 
+    /**
+     * Policy for reject forum.
+     *
+     * @param User $user
+     * @return bool
+     */
     public function rejectForum(User $user)
     {
         if ($user->isAdmin()) {
@@ -37,6 +49,12 @@ class ForumPolicy
         return false;
     }
 
+    /**
+     * Policy for post forums without approvals.
+     *
+     * @param User $user
+     * @return bool
+     */
     public function postWithoutApproval(User $user)
     {
         if ($user->isAdmin()) {

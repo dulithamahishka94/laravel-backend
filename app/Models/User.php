@@ -48,6 +48,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Check whether the user is an admin.
+     *
+     * @return bool
+     */
     public function isAdmin() : bool
     {
         return $this->type === self::ADMIN;

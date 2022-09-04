@@ -93,7 +93,6 @@ class CommentController extends Controller
         try {
 
             $request->validated();
-            //        $forumid = $request->forum_id;
             $forum = Forum::findOrFail($request->forum_id);
 
             $comment = new Comment();

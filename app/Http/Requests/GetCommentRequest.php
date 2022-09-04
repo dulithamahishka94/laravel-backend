@@ -28,7 +28,7 @@ GetCommentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'forum_id' => 'required'
         ];
     }
 }

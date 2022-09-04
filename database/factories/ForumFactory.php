@@ -17,7 +17,6 @@ class ForumFactory extends Factory
      */
     public function definition()
     {
-//        dd(User::inRandomOrder()->where('type', User::DEFAULT_USER)->first('id')->id);
         return [
             'title' => $this->faker->text(100),
             'description' => $this->faker->paragraph(5),
