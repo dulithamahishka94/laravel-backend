@@ -57,23 +57,4 @@ class User extends Authenticatable
     {
          return $this->hasManyThrough(Comment::class, Forum::class, 'user_id','comment_by','id','id');
     }
-//    /**
-//     * Get the post that owns the comment.
-//     */
-//    public function comments()
-//    {
-//        return $this->belongsTo(Comment::class, 'comment_by', 'id');
-//    }
-
-//    public function comments()
-//    {
-//        return $this->hasManyThrough(
-//            Forum::class,
-//            Comment::class,
-//            'forum_id',
-//            'comment_by',
-//            'id',
-//            'id'
-//        );
-//    }
 }

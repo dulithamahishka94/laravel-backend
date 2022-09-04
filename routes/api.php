@@ -6,6 +6,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ForumController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +41,8 @@ Route::middleware('auth:api')->post('/list', [ForumController::class, 'index']);
 
 Route::post('/logout', [AuthController::class, 'logout']);
 Route::post('/get-token', [AuthController::class, 'getToken']);
+
+Route::fallback(function(){
+    return response()->json([
+        'message' => 'Page Not Found. If error persists, contact administrator'], Response::HTTP_NOT_FOUND);
+});
