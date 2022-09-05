@@ -48,6 +48,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Check whether the user is an admin.
+     *
+     * @return bool
+     */
     public function isAdmin() : bool
     {
         return $this->type === self::ADMIN;
@@ -57,23 +62,4 @@ class User extends Authenticatable
     {
          return $this->hasManyThrough(Comment::class, Forum::class, 'user_id','comment_by','id','id');
     }
-//    /**
-//     * Get the post that owns the comment.
-//     */
-//    public function comments()
-//    {
-//        return $this->belongsTo(Comment::class, 'comment_by', 'id');
-//    }
-
-//    public function comments()
-//    {
-//        return $this->hasManyThrough(
-//            Forum::class,
-//            Comment::class,
-//            'forum_id',
-//            'comment_by',
-//            'id',
-//            'id'
-//        );
-//    }
 }

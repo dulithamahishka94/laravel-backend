@@ -12,6 +12,27 @@ class Forum extends Model
     protected $table = 'forums';
     protected $primaryKey = 'id';
 
+
+    /**
+     * Pending status
+     */
+    const STATUS_PENDING = 0;
+
+    /**
+     * Forum approved status
+     */
+    const FORUM_APPROVED = 1;
+
+    /**
+     * Forum rejected status
+     */
+    const FORUM_REJECTED = 3;
+
+    /**
+     * Forum deleted status
+     */
+    const FORUM_DELETED = 1;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -27,15 +48,9 @@ class Forum extends Model
         'user_id'
     ];
 
-//    public function users()
-//    {
-//        return $this->belongsTo(User::class, 'user_id', 'id');
-//    }
-//
-//    public function comments()
-//    {
-//        return $this->hasMany(Comment::class, 'forum_id', 'id');
-//    }
-
-
+    // This function contains the relationship to the Comment::class.
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

@@ -2,12 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Traits\JsonResponseTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeleteForumRequest extends FormRequest
+class GetTokenRequest extends FormRequest
 {
-    use JsonResponseTrait;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -26,7 +24,8 @@ class DeleteForumRequest extends FormRequest
     public function rules()
     {
         return [
-            'forum_id' => 'required'
+            'username' => 'required',
+            'password' => 'required',
         ];
     }
 }

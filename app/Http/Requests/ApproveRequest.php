@@ -27,7 +27,8 @@ class ApproveRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'forum_id' => 'required',
+            'status' => 'required'
         ];
     }
 }

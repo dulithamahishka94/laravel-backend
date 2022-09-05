@@ -27,6 +27,7 @@ class CreateCommentRequest extends FormRequest
     {
         return [
             'comment' => 'required|string',
+            'forum_id' => 'required',
         ];
     }
 }

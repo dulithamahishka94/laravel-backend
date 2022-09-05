@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\ApproveController;
+use App\Models\Forum;
 use App\Models\User;
+use App\Policies\ForumPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -16,7 +19,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-         User::class => UserPolicy::class,
+        ApproveController::class => ForumPolicy::class
     ];
 
     /**
@@ -28,8 +31,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        if (! $this->app->routesAreCached()) {
+        if (!$this->app->routesAreCached()) {
             Passport::routes();
         }
+
+        Gate::define('approve-forum', [ForumPolicy::class, 'approveForum']);
+        Gate::define('reject-forum', [ForumPolicy::class, 'rejectForum']);
+        Gate::define('post-without-approval', [ForumPolicy::class, 'postWithoutApproval']);
     }
 }
