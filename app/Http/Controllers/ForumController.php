@@ -49,6 +49,7 @@ class ForumController extends Controller
             $forumModel->deleted = Forum::STATUS_PENDING;
             $forumModel->deleted_by = null;
             $forumModel->user_id = $user->id;
+            $forumModel->forum_user_name = $user->name;
 
             $forumModel->save();
 
@@ -187,7 +188,11 @@ class ForumController extends Controller
 
             // If search string exists.
             if (!empty($request->search)) {
-                $forums->where('title', 'like', '%' . $request->search . '%');
+                // Search by users name or forum title.
+                $forums->where(function ($query) use ($request) {
+                    $query->where('title', 'like', '%' . $request->search . '%');
+                    $query->orWhere('forum_user_name', 'like', '%' . $request->search . '%');
+                });
             }
 
             $response = $forums->get();

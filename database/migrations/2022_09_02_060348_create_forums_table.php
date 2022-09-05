@@ -22,6 +22,7 @@ class CreateForumsTable extends Migration
             $table->smallInteger('deleted')->default(0);
             $table->foreignId('deleted_by')->nullable()->references('id')->on('users');
             $table->string('user_id')->references('id')->on('users');
+            $table->string('forum_user_name');
             $table->timestamps();
         });
     }
