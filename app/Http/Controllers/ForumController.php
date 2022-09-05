@@ -35,18 +35,18 @@ class ForumController extends Controller
             $forumModel->title = $request->title;
             $forumModel->description = $request->description;
 
-            $approved = 0;
+            $approved = Forum::STATUS_PENDING;
             $approvedBy = null;
 
             // Admins should be able to create forums without approvals.
             if (Gate::allows('post-without-approval', $user)) {
-                $approved = 1;
+                $approved = Forum::FORUM_APPROVED;
                 $approvedBy = $user->id;
             }
 
             $forumModel->approved = $approved;
             $forumModel->approved_by = $approvedBy;
-            $forumModel->deleted = 0;
+            $forumModel->deleted = Forum::STATUS_PENDING;
             $forumModel->deleted_by = null;
             $forumModel->user_id = $user->id;
 
@@ -112,11 +112,14 @@ class ForumController extends Controller
             $forum = Forum::findOrFail($forumId);
             $user = User::findOrFail($request->user()->id);
 
-            $forum->deleted = 1;
+            $forum->deleted = Forum::FORUM_DELETED; // add const
             $forum->deleted_by = $user->id;
             $forum->save();
 
             $response = $forum;
+
+            // Delete comments related to the forum.
+            $forum->comments()->delete();
 
             Log::channel('default_log')->info('Forum deleted', [
                 'added_user_id' => $request->user()->id,
@@ -173,11 +176,13 @@ class ForumController extends Controller
             $request->validated();
             $user = User::findOrFail($request->user()->id);
 
-            $forums = Forum::where('deleted', 0);
+            $forums = Forum::where('deleted', Forum::STATUS_PENDING);
 
             // Default users can only see the forums that were already approved.
             if (!$user->isAdmin()) {
-                $forums->where('approved', 1);
+                $forums->where('approved', Forum::FORUM_APPROVED);
+            } else {
+                $forums->where('approved', '<>', Forum::FORUM_REJECTED);
             }
 
             $response = $forums->get();

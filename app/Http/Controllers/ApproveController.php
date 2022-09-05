@@ -15,10 +15,6 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class ApproveController extends Controller
 {
-    const STATUS_OK = 1;
-    const STATUS_NOT_OK = 0;
-    const STATUS_REJECTED = 3;
-
     /**
      * This function will be used to approve the forums created by a default user.
      *
@@ -37,14 +33,8 @@ class ApproveController extends Controller
             if (Gate::allows('approve-forum', $user)) {
                 $forum = Forum::findOrFail($request->forum_id);
 
-                if (!$request->status) {
-                    $forum->approved = self::STATUS_NOT_OK;
-                    $forum->deleted = self::STATUS_OK;
-                    $forum->deleted_by = $request->user()->id;
-                } else {
-                    $forum->approved = self::STATUS_OK;
-                    $forum->approved_by = $user->id;
-                }
+                $forum->approved = Forum::FORUM_APPROVED;
+                $forum->approved_by = $user->id;
 
                 $forum->save();
                 $response = $forum;
@@ -118,7 +108,7 @@ class ApproveController extends Controller
             if (Gate::allows('reject-forum', $user)) { // Check whether the user has reject permissions.
                 $forum = Forum::findOrFail($request->forum_id);
 
-                $forum->approved = self::STATUS_REJECTED;
+                $forum->approved = Forum::FORUM_REJECTED;
                 $forum->approved_by = $user->id;
                 $forum->save();
 
