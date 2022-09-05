@@ -185,6 +185,11 @@ class ForumController extends Controller
                 $forums->where('approved', '<>', Forum::FORUM_REJECTED);
             }
 
+            // If search string exists.
+            if (!empty($request->search)) {
+                $forums->where('title', 'like', '%' . $request->search . '%');
+            }
+
             $response = $forums->get();
         } catch (MethodNotAllowedHttpException $e) {
             $response = 'Wrong method call used';
