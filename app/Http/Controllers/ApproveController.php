@@ -7,7 +7,6 @@ use App\Models\Approve;
 use App\Models\Forum;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;

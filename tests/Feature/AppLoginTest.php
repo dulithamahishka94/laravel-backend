@@ -40,10 +40,4 @@ class AppLoginTest extends TestCase
 
         $user->delete();
     }
-
-//    public function tearDown() : void
-//    {
-//        $id = $this->userObject->id;
-//        User::where('id', $id)->delete();
-//    }
 }
